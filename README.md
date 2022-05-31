@@ -1,6 +1,6 @@
 # book-search
 
-A web-app designed for parents to track online reading activities of children.
+A web app for visualizing Google Books API responses.
 
 ## Getting Started
 

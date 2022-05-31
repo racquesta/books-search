@@ -95,7 +95,7 @@ const Main: React.FC = () => {
         </div>
       )}
 
-      {filteredBooks.length ? (
+      {books.length ? (
         <>
           <CustomForm
             formName='filterForm'
