@@ -10,6 +10,7 @@ import { filterConfig, searchFormConfig } from './sampleFormConfigs';
 const { useBreakpoint } = Grid;
 const { Title } = Typography;
 
+// TODO: start - move to a better place
 const mapping = {
   epub: (book: Book) => book.accessInfo.epub?.isAvailable,
   pdf: (book: Book) => book.accessInfo.pdf?.isAvailable,
@@ -17,6 +18,7 @@ const mapping = {
 };
 
 type Mapping = keyof typeof mapping;
+// TODO: end - move to a better place
 
 const Main: React.FC = () => {
   const [searchValues, setSearchValues] = React.useState({
@@ -77,6 +79,7 @@ const Main: React.FC = () => {
     });
   };
 
+  //   TODO: move to helper file
   const filteredBooks = filterBooks(books, filters); //state changes always involve these so not worth memoizing
 
   return (
@@ -124,7 +127,7 @@ const Main: React.FC = () => {
               {filteredBooks.map((book, i) => {
                 return (
                   // So many improvements can happen here,
-                  // abstraction, better keys - they are likely insufficient now,
+                  // abstraction
                   // truncating of text for display
                   <Col key={`${book.id}-${i}`} xs={24} sm={12} md={8} lg={6} xl={4}>
                     <a href={book.volumeInfo.previewLink} rel='noopener noreferrer' target='_blank'>
@@ -148,7 +151,7 @@ const Main: React.FC = () => {
                         {/* Design hack: likely an accessibility no-no */}
                         <Title level={5}>{book.volumeInfo.title}</Title>
                         {(book.volumeInfo.authors || []).map((author) => {
-                          return <p key={author}>{author}</p>;
+                          return <p key={`${author}-${book.id}-${i}}`}>{author}</p>;
                         })}
                         {(book.volumeInfo.categories || []).map((category) => {
                           return (
@@ -158,7 +161,7 @@ const Main: React.FC = () => {
                                 maxWidth: '100%',
                                 whiteSpace: 'break-spaces',
                               }}
-                              key={category}
+                              key={`${category}-${book.id}-${i}}`}
                             >
                               {category}
                             </Tag>
